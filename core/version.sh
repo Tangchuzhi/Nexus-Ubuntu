@@ -68,7 +68,7 @@ get_nexus_remote_version() {
     fi
     
     local version=$(timeout 5 curl -s --connect-timeout 2 --max-time 4 \
-        "https://raw.githubusercontent.com/Tangchuzhi/Nexus/main/VERSION" \
+        "https://raw.githubusercontent.com/Tangchuzhi/Nexus-Ubuntu/main/VERSION" \
         2>/dev/null | tr -d '[:space:]')
     
     if [ -n "$version" ]; then
@@ -105,7 +105,7 @@ refresh_version_cache() {
     
     # 2. 获取 Nexus 版本
     local nexus_ver=$(timeout 5 curl -s --connect-timeout 2 --max-time 4 \
-        "https://raw.githubusercontent.com/Tangchuzhi/Nexus/main/VERSION?t=${timestamp}" \
+        "https://raw.githubusercontent.com/Tangchuzhi/Nexus-Ubuntu/main/VERSION?t=${timestamp}" \
         2>/dev/null | tr -d '[:space:]')
     
     if [ -n "$nexus_ver" ]; then
