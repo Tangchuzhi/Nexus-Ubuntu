@@ -175,7 +175,7 @@ install_nexus() {
     print_info "正在下载 Nexus（可能需要 1-2 分钟）..."
     
     if ! git clone --depth=1 --progress \
-        https://github.com/Tangchuzhi/Nexus.git "$install_dir" 2>&1 | \
+        https://github.com/Tangchuzhi/Nexus-Ubuntu.git "$install_dir" 2>&1 | \
         grep -E "(Cloning|Receiving|Resolving)"; then
         
         print_error "下载失败"
@@ -183,7 +183,7 @@ install_nexus() {
         # 尝试使用镜像
         print_info "尝试使用 GitHub 镜像..."
         if ! git clone --depth=1 --progress \
-            https://ghproxy.com/https://github.com/Tangchuzhi/Nexus.git "$install_dir" 2>&1 | \
+            https://ghproxy.com/https://github.com/Tangchuzhi/Nexus-Ubuntu.git "$install_dir" 2>&1 | \
             grep -E "(Cloning|Receiving|Resolving)"; then
             
             print_error "下载失败，请检查网络或稍后重试"
