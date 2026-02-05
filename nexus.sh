@@ -1,5 +1,5 @@
 #!/bin/bash
-# Nexus - SillyTavern 管理终端 (Ubuntu 版本)
+# Nexus - SillyTavern 管理终端
 
 # 获取脚本真实路径
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
@@ -97,3 +97,4 @@ main_menu() {
 init_nexus
 fetch_version_info
 main_menu
+
