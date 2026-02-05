@@ -1,5 +1,5 @@
 #!/bin/bash
-# SillyTavern 生命周期管理模块 (Ubuntu 版本)
+# SillyTavern 生命周期管理模块 (Ubuntu)
 
 ST_REPO="https://github.com/SillyTavern/SillyTavern.git"
 SILLYTAVERN_DIR="$HOME/SillyTavern"
@@ -262,3 +262,4 @@ st_uninstall() {
         show_success "SillyTavern 已完全卸载"
     fi
 }
+
