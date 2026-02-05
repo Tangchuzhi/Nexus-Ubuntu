@@ -1,5 +1,5 @@
 #!/bin/bash
-# 备份与恢复模块 (Ubuntu 版本)
+# 备份与恢复模块 (Ubuntu)
 
 BACKUP_DIR="$HOME/.nexus/backups"
 ST_BACKUP_DIR="$SILLYTAVERN_DIR/backups"
@@ -326,3 +326,4 @@ backup_delete() {
     rm -rf "$backup_path"
     show_success "备份已删除"
 }
+
