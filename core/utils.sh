@@ -1,6 +1,16 @@
 #!/bin/bash
 # 核心工具函数 (Ubuntu 版本)
 
+# 智能 sudo 函数 - 自动检测是否需要 sudo
+smart_sudo() {
+    # 如果已经是 root 用户（uid=0）或在 proot 环境，直接执行命令
+    if [ "$(id -u)" -eq 0 ] || [ -n "$PROOT_TMP_DIR" ]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
 # 初始化 Nexus
 init_nexus() {
     # 创建必要目录
@@ -27,8 +37,8 @@ check_dependencies() {
     if [ ${#missing_deps[@]} -gt 0 ]; then
         show_error "缺少依赖: ${missing_deps[*]}"
         show_info "正在安装依赖..."
-        sudo apt update && sudo apt install -y git nodejs npm jq curl || {
-            show_error "依赖安装失败，请手动执行: sudo apt install git nodejs npm jq curl"
+        smart_sudo apt update && smart_sudo apt install -y git nodejs npm jq curl || {
+            show_error "依赖安装失败，请手动执行: apt install git nodejs npm jq curl"
             exit 1
         }
     fi
