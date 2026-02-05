@@ -1,5 +1,5 @@
 #!/bin/bash
-# UI 显示模块 (Ubuntu 版本)
+# UI 显示模块 (Ubuntu)
 
 # 颜色定义
 COLOR_RESET='\033[0m'
@@ -111,3 +111,4 @@ show_loading() {
     echo -n "$message"
     echo " ..."
 }
+
