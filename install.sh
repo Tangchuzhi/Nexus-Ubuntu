@@ -4,6 +4,20 @@
 set -e
 
 # ============================================
+# 智能 sudo 函数
+# ============================================
+
+# 自动检测是否需要 sudo
+smart_sudo() {
+    # 如果已经是 root 用户（uid=0）或在 proot 环境，直接执行命令
+    if [ "$(id -u)" -eq 0 ] || [ -n "$PROOT_TMP_DIR" ]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+# ============================================
 # 颜色定义
 # ============================================
 
@@ -69,7 +83,7 @@ setup_mirrors() {
     
     # 备份原配置
     [ -f "/etc/apt/sources.list" ] && \
-        sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+        smart_sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
     
     if [ "$use_cn_mirror" = true ]; then
         print_info "检测到国内网络，建议使用国内镜像源"
@@ -109,14 +123,14 @@ install_dependencies() {
     
     # 更新软件源
     print_info "更新软件源（可能需要 1-2 分钟）..."
-    if ! sudo apt update 2>&1 | grep -E "(Reading|Get:|Fetched)" | tail -5; then
+    if ! smart_sudo apt update 2>&1 | grep -E "(Reading|Get:|Fetched)" | tail -5; then
         print_error "软件源更新失败"
         
         # 尝试恢复备份
         if [ -f "/etc/apt/sources.list.bak" ]; then
             print_info "尝试恢复原镜像源..."
-            sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list
-            sudo apt update || {
+            smart_sudo mv /etc/apt/sources.list.bak /etc/apt/sources.list
+            smart_sudo apt update || {
                 print_error "依然失败，请手动配置镜像源"
                 exit 1
             }
@@ -127,13 +141,13 @@ install_dependencies() {
     
     # 升级已安装的包（避免依赖冲突）
     print_info "升级系统包（可能需要 2-3 分钟）..."
-    sudo apt upgrade -y 2>&1 | grep -E "(Reading|Unpacking|Setting up)" | tail -5 || {
+    smart_sudo apt upgrade -y 2>&1 | grep -E "(Reading|Unpacking|Setting up)" | tail -5 || {
         print_warning "部分包升级失败，继续安装..."
     }
     
     # 安装依赖包
     print_info "安装依赖包..."
-    if ! sudo apt install -y git nodejs npm jq curl 2>&1 | grep -E "(Unpacking|Setting up)" | tail -5; then
+    if ! smart_sudo apt install -y git nodejs npm jq curl 2>&1 | grep -E "(Unpacking|Setting up)" | tail -5; then
         print_error "依赖安装失败"
         exit 1
     fi
@@ -196,7 +210,7 @@ install_nexus() {
     chmod +x "$install_dir/install.sh"
     
     # 创建软链接
-    sudo ln -sf "$install_dir/nexus.sh" "/usr/local/bin/nexus"
+    smart_sudo ln -sf "$install_dir/nexus.sh" "/usr/local/bin/nexus"
     
     print_success "Nexus 安装完成"
 }
