@@ -1,5 +1,5 @@
 #!/bin/bash
-# SillyTavern 运行时管理模块 (Ubuntu 版本)
+# SillyTavern 运行时管理模块 (Ubuntu)
 
 # 启动 SillyTavern
 st_start() {
@@ -56,3 +56,4 @@ get_st_status() {
         echo "stopped"
     fi
 }
+
