@@ -1,5 +1,5 @@
 #!/bin/bash
-# 版本检查模块 (Ubuntu 版本)
+# 版本检查模块 (Ubuntu)
 
 CACHE_DIR="$NEXUS_DIR/.cache"
 
@@ -141,3 +141,4 @@ get_st_status() {
         echo "stopped"
     fi
 }
+
