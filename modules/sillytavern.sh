@@ -1,5 +1,5 @@
 #!/bin/bash
-# SillyTavern 管理模块 (Ubuntu 版本)
+# SillyTavern 管理模块
 
 ST_REPO="https://github.com/SillyTavern/SillyTavern.git"
 SILLYTAVERN_DIR="$HOME/SillyTavern"
@@ -227,3 +227,4 @@ st_start() {
     echo ""
     read -p "按任意键继续..." -n 1
 }
+
