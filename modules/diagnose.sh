@@ -120,8 +120,8 @@ show_path_info() {
 reinstall_dependencies() {
     show_info "开始重新安装依赖..."
     
-    sudo apt update
-    sudo apt install -y git nodejs npm jq curl
+    smart_sudo apt update
+    smart_sudo apt install -y git nodejs npm jq curl
     
     show_success "依赖安装完成"
     show_info "请重新运行故障排查"
