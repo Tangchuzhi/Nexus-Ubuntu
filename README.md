@@ -1,5 +1,5 @@
 
-# Nexus - SillyTavern 一键部署与管理工具 (Ubuntu 版本)
+# Nexus - SillyTavern 一键部署与管理工具 (Ubuntu)
 
 **专为 Ubuntu 打造的轻量级、模块化 SillyTavern 管理框架**
 
@@ -94,6 +94,7 @@ Nexus/
 > ⚠️ **警告**：任何违反上述协议的行为（包括但不限于修改代码后二次打包发布、去除版权信息等）均将被视为侵权。
 
 Copyright © 2024 Tangchuzhi. All Rights Reserved.
+
 
 
 
