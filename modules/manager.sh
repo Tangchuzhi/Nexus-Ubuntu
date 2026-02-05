@@ -93,7 +93,7 @@ nexus_uninstall() {
     show_info "正在卸载 Nexus..."
     
     # 删除软链接
-    sudo rm -f "/usr/local/bin/nexus"
+    smart_sudo rm -f "/usr/local/bin/nexus"
     
     # 删除自启动配置
     local bashrc="$HOME/.bashrc"
