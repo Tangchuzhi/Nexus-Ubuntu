@@ -29,7 +29,7 @@ if [ -f "$LOCK_FILE" ]; then
 fi
 
 # 创建锁文件
-echo $ > "$LOCK_FILE"
+echo $$ > "$LOCK_FILE"
 
 # 设置退出时自动清理锁文件
 trap "rm -f $LOCK_FILE" EXIT INT TERM
