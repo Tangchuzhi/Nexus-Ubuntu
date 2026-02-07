@@ -205,9 +205,15 @@ install_nexus() {
         fi
     fi
     
+    # 修复 Windows 换行符问题
+    print_info "修复文件格式..."
+    find "$install_dir" -type f -name "*.sh" -exec sed -i 's/\r$//' {} \; 2>/dev/null || true
+    find "$install_dir" -type f -name "*.conf" -exec sed -i 's/\r$//' {} \; 2>/dev/null || true
+    
     # 设置权限
     chmod +x "$install_dir/nexus.sh"
     chmod +x "$install_dir/install.sh"
+    find "$install_dir" -type f -name "*.sh" -exec chmod +x {} \;
     
     # 创建软链接
     smart_sudo ln -sf "$install_dir/nexus.sh" "/usr/local/bin/nexus"
