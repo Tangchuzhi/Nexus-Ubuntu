@@ -38,8 +38,40 @@ st_start() {
         return 1
     }
     
-    # 前台运行
-    NODE_OPTIONS="--max-old-space-size=512" node server.js
+    # 检查并禁用缩略图（修复 proot 环境崩溃问题）
+    local config_file="$SILLYTAVERN_DIR/config.yaml"
+    if [ -f "$config_file" ]; then
+        if ! grep -q "enableThumbnails: false" "$config_file"; then
+            show_info "检测到缩略图功能，正在禁用以避免崩溃..."
+            
+            # 备份配置
+            cp "$config_file" "$config_file.bak.$(date +%s)" 2>/dev/null
+            
+            # 禁用缩略图
+            if grep -q "enableThumbnails:" "$config_file"; then
+                sed -i 's/enableThumbnails: true/enableThumbnails: false/' "$config_file"
+                sed -i 's/enableThumbnails:true/enableThumbnails: false/' "$config_file"
+            else
+                echo "" >> "$config_file"
+                echo "# 禁用缩略图（修复 proot 环境崩溃问题）" >> "$config_file"
+                echo "enableThumbnails: false" >> "$config_file"
+            fi
+            
+            show_success "已自动禁用缩略图功能"
+            echo ""
+        fi
+    fi
+    
+    # 前台运行（添加环境变量修复 proot 内存问题）
+    # 设置较小的内存限制和禁用某些优化以避免 proot 环境下的崩溃
+    export NODE_OPTIONS="--max-old-space-size=512 --max-semi-space-size=2"
+    export MALLOC_ARENA_MAX=2
+    
+    node server.js
+    
+    # 清理环境变量
+    unset NODE_OPTIONS
+    unset MALLOC_ARENA_MAX
     
     # 如果执行到这里，说明服务已停止
     echo ""
