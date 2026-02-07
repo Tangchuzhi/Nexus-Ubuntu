@@ -39,7 +39,7 @@ st_start() {
     }
     
     # 前台运行
-    node server.js
+    NODE_OPTIONS="--max-old-space-size=512" node server.js
     
     # 如果执行到这里，说明服务已停止
     echo ""
